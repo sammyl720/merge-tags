@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+      "module": "ESNext",
+      "target": "ESNext",
+      "strict": true,
+      "moduleResolution": "node",
+      "esModuleInterop": true,
+      "skipLibCheck": true,
+      "allowSyntheticDefaultImports": true,
+      "types": ["jest", "node"]
+    },
+    "ts-node": {
+      "esm": true
+    },
+    "include": ["./src/**/*", "./tests/**/*"],
+    "exclude": ["node_modules"]
+}
+  
