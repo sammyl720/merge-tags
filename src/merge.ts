@@ -1,12 +1,27 @@
-import { MergeTagOptions, MergeTagType, MergeValues, TagStrategy } from "./definitions/index.js";
-import { TagStrategyDecorator } from "./strategies/index.js";
+import { MergeTagOptions, MergeValues, TagStrategy } from "./definitions/index";
+import { TagStrategyDecorator } from "./strategies";
 
 export class Merger {
-    private strategy: TagStrategy;
+    private get tagLength() {
+        return this.strategy.opener.length;
+    }
 
-    constructor(private options: MergeTagOptions = { type: MergeTagType.Braces, count: 1})
+    constructor(private strategy: TagStrategy)
     {
-        this.strategy = TagStrategyDecorator.GetStrategy(options.type, options.count);
+        if (strategy.closer.length !== strategy.opener.length)
+        {
+            throw new Error("Merger constructor: input strategy opener and closer should have the same length.")
+        }
+    }
+
+    static From(options: MergeTagOptions)
+    {
+        return new Merger(TagStrategyDecorator.GetStrategy(options.type, options.count));
+    }
+
+    setStrategy(strategy: TagStrategy)
+    {
+        this.strategy = strategy;
     }
 
     MergeTags(value: string, dictionary: MergeValues)
@@ -24,12 +39,14 @@ export class Merger {
                 throw new Error("Expected closing " + this.strategy.closer);
             }
 
-            const key = valueToParse.substring(this.options.count, indexOfClosingTag);
-            const value = dictionary[key] ?? "";
+            const key = valueToParse.substring(this.tagLength, indexOfClosingTag);
+            const value = dictionary[key] ?? `${this.strategy.opener}${key}${this.strategy.closer}`;
             result += value;
-            valueToParse = valueToParse.substring(indexOfClosingTag + this.options.count);
+            valueToParse = valueToParse.substring(indexOfClosingTag + this.tagLength);
             indexOfNextTag = valueToParse.indexOf(this.strategy.opener);
         }
+
+        result += valueToParse;
 
         return result;
     }

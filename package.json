@@ -4,6 +4,9 @@
   "description": "Easy way to replace placeholders in strings",
   "main": "dist/index.js",
   "type": "module",
+  "files": [
+    "/dist"
+  ],
   "scripts": {
     "build": "tsc --project tsconfig.prod.json",
     "test": "jest",

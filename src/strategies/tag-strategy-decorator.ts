@@ -1,5 +1,5 @@
-import { MergeTagType, TagStrategy } from "../definitions/index.js";
-import { TagStrategyFactory } from "./tag-strategy-factory.js";
+import { MergeTagType, TagStrategy } from "../definitions";
+import { TagStrategyFactory } from "./tag-strategy-factory";
 
 export class TagStrategyDecorator implements TagStrategy {
 

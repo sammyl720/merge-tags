@@ -1,19 +1,16 @@
-import { MergeTagType, MergeValues } from "./definitions/index.js";
-import { Merger } from "./merge.js";
+import { MergeTagOptions, MergeTagType } from './definitions';
+import { Merger } from './merge';
 
-const merge = new Merger({ type: MergeTagType.AngleBracket, count: 3});
+export * from './merge';
+export * from './strategies';
+export * from './definitions';
 
-const valueToMerge = "Hi <<<name>>>, good <<<time>>>";
+const mergerOptions = { type: MergeTagType.Braces, count: 2};
 
-const dictionary: MergeValues = {
-    "name": "Bob",
-    "time": "afternoon"
+declare global {
+    interface Window {
+        Merger: Merger;
+    }
 }
 
-const result = merge.MergeTags(valueToMerge, dictionary);
-
-console.table({
-    original: valueToMerge,
-    result,
-    dictionary: JSON.stringify(dictionary)
-})
+window.Merger = Merger.From(mergerOptions);

@@ -1,5 +1,5 @@
-import { MergeTagType, TagStrategy } from "../definitions/index.js";
-import { AngleBracketsStrategy, CurlyBracesStrategy, ParenthesesStrategy, SquareBracketStrategy } from "./index.js";
+import { MergeTagType, TagStrategy } from "../definitions";
+import { AngleBracketsStrategy, CurlyBracesStrategy, ParenthesesStrategy, SquareBracketStrategy } from "./index";
 
 export class TagStrategyFactory {
     static getTagStrategy(type: MergeTagType): TagStrategy {

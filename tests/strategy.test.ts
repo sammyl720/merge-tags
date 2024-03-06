@@ -7,5 +7,5 @@ describe("TagStrategyDecorator", () => {
         const strategy = TagStrategyDecorator.GetStrategy(MergeTagType.AngleBracket, 3);
         expect(strategy.opener).toBe("<<<");
         expect(strategy.closer).toBe(">>>");
-    })
+    });
 })
